@@ -6,6 +6,15 @@
   <title>143 HERTZ</title>
 
   <style>
+
+    .screens {
+  position:relative;
+  min-height:calc(100vh - 40px - 60px);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+
     * {
       margin:0;
       padding:0;
@@ -388,6 +397,20 @@
     }
   </style>
 </head>
+<script>
+  // Блокирует сворачивание мини-аппа при свайпе вниз
+  document.addEventListener('touchmove', function(e) {
+    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.isExpanded) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  // Принудительно разворачиваем app, чтобы свайп не закрывал
+  if (window.Telegram && Telegram.WebApp) {
+    Telegram.WebApp.expand();
+  }
+</script>
+
 <body>
 <div class="app">
   <div class="safe-top"></div>
