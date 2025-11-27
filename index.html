@@ -105,83 +105,109 @@
       margin:12px 4px;
     }
 
-    /* SHOP CARDS */
-/* SHOP CARDS */
-.shop-row{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
+    /* ==== SHOP CARDS ==== */
+    .shop-row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+    }
 
-/* сама карточка — как мини версия music-card */
-.shop-card{
-  width:50%;
-  background:rgba(0,0,0,0.7);
-  border-radius:28px;
-  padding:10px;
-  backdrop-filter:blur(12px);
-  cursor:pointer;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-.shop-card-inner{
-  width:100%;
-  aspect-ratio:1/1;          /* Идеальный квадрат */
-  background:rgba(255,255,255,0.12);
-  border-radius:22px;
-  backdrop-filter:blur(10px);
-}
-.shop-card-btn{
-  margin-top:10px;
-  padding:8px 22px;
-  min-height:34px;
-  font-size:13px;
-  border-radius:999px;
-  border:none;
-  background:#fff;
-  color:#000 !important;
-  cursor:pointer;
-
-  appearance:none;
-  -webkit-appearance:none;
-  text-decoration:none !important;
-}
-
-
-    /* MUSIC */
-    .music-card{
-      background:rgba(255,255,255,0.07);
-      backdrop-filter:blur(16px);
+    .shop-card{
+      width:50%;
+      background:rgba(0,0,0,0.7);
+      border-radius:28px;
+      padding:10px;
+      backdrop-filter:blur(12px);
+      cursor:pointer;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+    .shop-card-inner{
+      width:100%;
+      aspect-ratio:1/1;          /* квадрат под фото товара */
+      background:rgba(255,255,255,0.12);
       border-radius:22px;
-      padding:12px;
+      backdrop-filter:blur(10px);
+    }
+    .shop-card-btn{
+      margin-top:10px;
+      padding:8px 22px;
+      min-height:34px;
+      font-size:13px;
+      border-radius:999px;
+      border:none;
+      background:#fff;
+      color:#000 !important;
+      cursor:pointer;
+      appearance:none;
+      -webkit-appearance:none;
+      text-decoration:none !important;
+    }
+
+    /* ===== МУЗЫКА: карточки как на скрине ===== */
+
+    .music-grid{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .music-card{
+      flex:1 1 calc(50% - 6px);           /* 2 карточки в ряд */
+      min-width:150px;
+      background:rgba(0,0,0,0.85);
+      border-radius:22px;
+      border:2px solid rgba(255,255,255,0.25);
+      padding:10px 12px;
       display:flex;
       align-items:center;
-      border:2px solid rgba(255,255,255,0.25);
-      margin-bottom:14px;
-    }
-    .music-cover{
-      width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,0.12);overflow:hidden;
-    }
-    .music-cover img{
-      width:100%;height:100%;object-fit:cover;
-    }
-    .music-text{margin-left:14px;color:#fff;}
-    .music-title{font-size:14px;font-weight:600;}
-    .music-sub{font-size:11px;opacity:.7;margin-top:3px;}
-    .music-card button{
-      margin-left:auto;
-      padding:6px 14px;
-      border-radius:12px;
-      border:none;
-      background:#000;
-      color:#fff;
-      font-size:11px;
       cursor:pointer;
+      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+      box-shadow:0 8px 18px rgba(0,0,0,0.6);
     }
 
-    /* ===== PRODUCT MODALS ===== */
+    .music-card:active{
+      transform:translateY(2px) scale(.98);
+      box-shadow:0 4px 10px rgba(0,0,0,0.7);
+      border-color:rgba(255,255,255,0.5);
+    }
+
+    .music-cover{
+      width:56px;
+      height:56px;
+      border-radius:16px;
+      background:#550000;
+      overflow:hidden;
+      flex-shrink:0;
+    }
+    .music-cover img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .music-text{
+      margin-left:10px;
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .music-title{
+      font-size:13px;
+      font-weight:600;
+      line-height:1.1;
+    }
+    .music-sub{
+      font-size:10px;
+      opacity:.7;
+      margin-top:4px;
+      letter-spacing:.03em;
+    }
+
+    /* ===== PRODUCT / ALBUM MODALS ===== */
 
     .product-modal-backdrop{
       position:fixed;
@@ -324,7 +350,7 @@
   <div class="block">
     <div class="carousel" id="carousel-home">
       <div class="carousel-track">
-        <div class="carousel-slide"></div>
+        <div class="carousel-slide"><img src="dark-bg.jpg" width="390"></div>
         <div class="carousel-slide"></div>
         <div class="carousel-slide"></div>
       </div>
@@ -357,22 +383,38 @@
   <div class="section-title">Музыка</div>
 
   <div class="block">
-    <div class="music-card">
-      <div class="music-cover"><img src="1.jpg" alt=""></div>
-      <div class="music-text">
-        <div class="music-title">АМУРНЫЕ ДЕЛА</div>
-        <div class="music-sub">143 HERTZ</div>
+    <div class="music-grid">
+      <div class="music-card" onclick="openProduct('album-amur')">
+        <div class="music-cover"><img src="1.jpg" alt=""></div>
+        <div class="music-text">
+          <div class="music-title">АМУРНЫЕ ДЕЛА</div>
+          <div class="music-sub">143 HERTZ</div>
+        </div>
       </div>
-      <button>слушать</button>
-    </div>
 
-    <div class="music-card">
-      <div class="music-cover"><img src="2.jpg" alt=""></div>
-      <div class="music-text">
-        <div class="music-title">BLOODY COMFORT</div>
-        <div class="music-sub">143 HERTZ</div>
+      <div class="music-card" onclick="openProduct('album-amur')">
+        <div class="music-cover"><img src="1.jpg" alt=""></div>
+        <div class="music-text">
+          <div class="music-title">АМУРНЫЕ ДЕЛА</div>
+          <div class="music-sub">143 HERTZ</div>
+        </div>
       </div>
-      <button>слушать</button>
+
+      <div class="music-card" onclick="openProduct('album-bloody')">
+        <div class="music-cover"><img src="2.jpg" alt=""></div>
+        <div class="music-text">
+          <div class="music-title">BLOODY COMFORT</div>
+          <div class="music-sub">143 HERTZ</div>
+        </div>
+      </div>
+
+      <div class="music-card" onclick="openProduct('album-bloody')">
+        <div class="music-cover"><img src="2.jpg" alt=""></div>
+        <div class="music-text">
+          <div class="music-title">BLOODY COMFORT</div>
+          <div class="music-sub">143 HERTZ</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -465,16 +507,98 @@
   </div>
 </div>
 
+<!-- ===== MODAL: ALBUM "АМУРНЫЕ ДЕЛА" ===== -->
+<div class="product-modal-backdrop" id="album-amur">
+  <div class="product-modal" onclick="event.stopPropagation()">
+    <div class="product-header-row">
+      <div class="product-back" onclick="closeProduct('album-amur')">←</div>
+      <div class="product-header-title">АМУРНЫЕ ДЕЛА — альбом</div>
+    </div>
+
+    <div class="product-scroll">
+      <div class="product-carousel">
+        <div class="product-carousel-track">
+          <div class="product-slide"></div>
+          <div class="product-slide"></div>
+          <div class="product-slide"></div>
+        </div>
+      </div>
+
+      <div class="product-title">АМУРНЫЕ ДЕЛА</div>
+
+      <div class="product-label">Артист:</div>
+      <div class="product-meta">143 HERTZ</div>
+
+      <div class="product-label">Описание:</div>
+      <div class="product-text">
+        Атмосферный альбом про амурные дела и поздние ночи. Включай в наушниках и не забывай, кого ты поддерживаешь.
+      </div>
+
+      <div class="product-label">Треки:</div>
+      <div class="product-text">
+        1. Intro<br>
+        2. Амурные дела<br>
+        3. Слёзы на бит<br>
+        4. Outro
+      </div>
+
+      <div class="buy-big">СЛУШАТЬ</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: ALBUM "BLOODY COMFORT" ===== -->
+<div class="product-modal-backdrop" id="album-bloody">
+  <div class="product-modal" onclick="event.stopPropagation()">
+    <div class="product-header-row">
+      <div class="product-back" onclick="closeProduct('album-bloody')">←</div>
+      <div class="product-header-title">BLOODY COMFORT — альбом</div>
+    </div>
+
+    <div class="product-scroll">
+      <div class="product-carousel">
+        <div class="product-carousel-track">
+          <div class="product-slide"></div>
+          <div class="product-slide"></div>
+          <div class="product-slide"></div>
+        </div>
+      </div>
+
+      <div class="product-title">BLOODY COMFORT</div>
+
+      <div class="product-label">Артист:</div>
+      <div class="product-meta">143 HERTZ</div>
+
+      <div class="product-label">Описание:</div>
+      <div class="product-text">
+        Темный уютный релиз, который хочется слушать в наушниках и выключить свет.
+      </div>
+
+      <div class="product-label">Треки:</div>
+      <div class="product-text">
+        1. Bloody Intro<br>
+        2. Comfort Zone<br>
+        3. Night Call<br>
+        4. Last Track
+      </div>
+
+      <div class="buy-big">СЛУШАТЬ</div>
+    </div>
+  </div>
+</div>
+
 <script>
-  // Открытие / закрытие модалок
+  // Открытие / закрытие модалок (и товара, и альбомов)
   function openProduct(id){
     const el = document.getElementById(id);
+    if(!el) return;
     el.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
   function closeProduct(id){
     const el = document.getElementById(id);
+    if(!el) return;
     el.classList.remove('open');
     document.body.style.overflow = '';
   }
@@ -487,48 +611,48 @@
     });
   });
 
-function initCarousel(carouselId, dotsId, slideClass='.carousel-slide', trackClass='.carousel-track'){
-  const wrap = document.getElementById(carouselId);
-  const track = wrap.querySelector(trackClass);
-  const slides = wrap.querySelectorAll(slideClass);
-  const dots = document.getElementById(dotsId).querySelectorAll('span');
+  // Карусели (свайп)
+  function initCarousel(carouselId, dotsId, slideClass='.carousel-slide', trackClass='.carousel-track'){
+    const wrap = document.getElementById(carouselId);
+    if(!wrap) return;
+    const track = wrap.querySelector(trackClass);
+    const slides = wrap.querySelectorAll(slideClass);
+    const dotsWrap = document.getElementById(dotsId);
+    const dots = dotsWrap ? dotsWrap.querySelectorAll('span') : [];
 
-  let index = 0;
-  let startX = 0;
+    let index = 0;
+    let startX = 0;
 
-  function update(){
-    track.style.transform = `translateX(-${index * 100}%)`;
-    dots.forEach(d => d.classList.remove('active'));
-    dots[index].classList.add('active');
-  }
-
-  wrap.addEventListener('touchstart', e => {
-    startX = e.touches[0].clientX;
-  });
-
-  wrap.addEventListener('touchend', e => {
-    const diff = e.changedTouches[0].clientX - startX;
-    if(diff > 60 && index > 0) index--;
-    if(diff < -60 && index < slides.length - 1) index++;
-    update();
-  });
-
-  update();
-
-  return {
-    next(){
-      index = (index + 1) % slides.length;
-      update();
+    function update(){
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach(d => d.classList.remove('active'));
+      if(dots[index]) dots[index].classList.add('active');
     }
-  };
-}
 
+    wrap.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+    });
 
+    wrap.addEventListener('touchend', e => {
+      const diff = e.changedTouches[0].clientX - startX;
+      if(diff > 60 && index > 0) index--;
+      if(diff < -60 && index < slides.length - 1) index++;
+      update();
+    });
 
+    update();
+
+    return {
+      next(){
+        index = (index + 1) % slides.length;
+        update();
+      }
+    };
+  }
 
   // Главная карусель
   initCarousel("carousel-home","dots-home",".carousel-slide",".carousel-track");
-  // Карусели внутри модалок
+  // Карусели внутри модалок товаров
   initCarousel("carousel-keychain","dots-keychain",".product-slide",".product-carousel-track");
   initCarousel("carousel-tshirt","dots-tshirt",".product-slide",".product-carousel-track");
 </script>
