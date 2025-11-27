@@ -487,34 +487,40 @@
     });
   });
 
-  // Карусели
-  function initCarousel(carouselId, dotsId, slideClass='.carousel-slide', trackClass='.carousel-track'){
-    const wrap=document.getElementById(carouselId);
-    const track=wrap.querySelector(trackClass);
-    const slides=wrap.querySelectorAll(slideClass);
-    const dots=document.getElementById(dotsId).querySelectorAll('span');
+function initCarousel(carouselId, dotsId, slideClass='.carousel-slide', trackClass='.carousel-track'){
+  const wrap=document.getElementById(carouselId);
+  const track=wrap.querySelector(trackClass);
+  const slides=wrap.querySelectorAll(slideClass);
+  const dots=document.getElementById(dotsId).querySelectorAll('span');
 
-    let index=0,startX=0;
+  let index=0, startX=0;
 
-    function update(){
-      track.style.transform=`translateX(-${index*100}%)`;
-      dots.forEach(d=>d.classList.remove('active'));
-      dots[index].classList.add('active');
-    }
-
-    wrap.addEventListener('touchstart',e=>{
-      startX=e.touches[0].clientX;
-    });
-
-    wrap.addEventListener('touchend',e=>{
-      let diff=e.changedTouches[0].clientX-startX;
-      if(diff>60 && index>0) index--;
-      if(diff<-60 && index<slides.length-1) index++;
-      update();
-    });
-
-    update();
+  function update(){
+    track.style.transform=`translateX(-${index*100}%)`;
+    dots.forEach(d=>d.classList.remove('active'));
+    dots[index].classList.add('active');
   }
+
+  wrap.addEventListener('touchstart',e=>{
+    startX=e.touches[0].clientX;
+  });
+
+  wrap.addEventListener('touchend',e=>{
+    let diff=e.changedTouches[0].clientX-startX;
+    if(diff>60 && index>0) index--;
+    if(diff<-60 && index<slides.length-1) index++;
+    update();
+  });
+
+  // === АВТОПРОКРУТКА КАЖДЫЕ 3.5 СЕК ===
+  setInterval(()=>{
+    index = (index+1) % slides.length;
+    update();
+  }, 3500);
+
+  update();
+}
+
 
   // Главная карусель
   initCarousel("carousel-home","dots-home",".carousel-slide",".carousel-track");
