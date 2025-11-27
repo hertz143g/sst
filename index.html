@@ -2,338 +2,401 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>143 HERTZ</title>
 
   <style>
     * {
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     /* ФОН САЙТА + ОБЩИЙ СКРОЛЛ */
     body {
-      background:url('dark-bg2.jpg') center/cover no-repeat fixed;
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
+      background: url('dark-bg2.jpg') center/cover no-repeat fixed;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
     }
 
     .app {
-      width:100%;
-      max-width:430px;
-      padding:40px 14px 40px;  /* 40px сверху = безопасная зона */
+      width: 100%;
+      max-width: 430px;
+      padding: 40px 14px 40px; /* 40px сверху = безопасная зона под Dynamic Island */
     }
 
     /* HEADER */
-    .header{
-      text-align:center;
-      margin-bottom:14px;
+    .header {
+      text-align: center;
+      margin-bottom: 14px;
     }
-    .header img{
-      width:44px;
-      height:auto;
+    .header img {
+      width: 44px;
+      height: auto;
     }
 
     /* UNIVERSAL GLASS BLOCK */
-    .block{
-      background:rgba(255,255,255,0.06);
-      backdrop-filter:blur(18px);
-      border-radius:22px;
-      border:1px solid rgba(255,255,255,0.15);
-      padding:18px;
-      margin-bottom:26px;
-      box-shadow:0 12px 26px rgba(0,0,0,0.5);
+    .block {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(18px);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 18px;
+      margin-bottom: 26px;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.5);
     }
 
-    /* CAROUSEL */
-    .carousel{
-      width:100%;
-      height:260px;
-      overflow:hidden;
-      border-radius:16px;
-      position:relative;
-      margin-bottom:10px;
+    /* CAROUSEL (ГЛАВНАЯ + В ТОВАРАХ) */
+    .carousel {
+      width: 100%;
+      height: 260px;
+      overflow: hidden;
+      border-radius: 16px;
+      position: relative;
+      margin-bottom: 10px;
     }
-    .carousel-track{
-      display:flex;
-      height:100%;
-      width:300%;
-      transition:transform .35s cubic-bezier(.16,.84,.44,1);
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      width: 300%;
+      transition: transform .35s cubic-bezier(.16,.84,.44,1);
     }
-    .carousel-slide{
-      width:100%;
-      height:100%;
-      background:rgba(255,255,255,0.14);
-      backdrop-filter:blur(6px);
-      flex-shrink:0;
+    .carousel-slide {
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(6px);
+      flex-shrink: 0;
     }
-
-    .carousel-dots{
-      text-align:center;
-      margin-top:4px;
-    }
-    .carousel-dots span{
-      width:7px;height:7px;display:inline-block;background:#777;border-radius:50%;margin:0 3px;opacity:.4;
-      transition:.2s;
-    }
-    .carousel-dots .active{
-      background:#fff;
-      opacity:1;
-      transform:scale(1.25);
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    .hero-listen{
-      position:absolute;
-      bottom:12px; right:12px;
-      padding:6px 18px;
-      background:rgba(0,0,0,0.7);
-      border:none;
-      color:#fff;
-      border-radius:16px;
-      font-size:13px;
-      cursor:pointer;
+    .carousel-dots {
+      text-align: center;
+      margin-top: 4px;
+    }
+    .carousel-dots span {
+      width: 7px;
+      height: 7px;
+      display: inline-block;
+      background: #777;
+      border-radius: 50%;
+      margin: 0 3px;
+      opacity: .4;
+      transition: .2s;
+    }
+    .carousel-dots .active {
+      background: #fff;
+      opacity: 1;
+      transform: scale(1.25);
+    }
+
+    .hero-listen {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      padding: 6px 18px;
+      background: rgba(0,0,0,0.7);
+      border: none;
+      color: #fff;
+      border-radius: 16px;
+      font-size: 13px;
+      cursor: pointer;
     }
 
     /* TITLES */
-    .section-title{
-      color:#fff;
-      font-size:22px;
-      font-weight:500;
-      margin:12px 4px;
+    .section-title {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 500;
+      margin: 12px 4px;
     }
 
-    /* ==== SHOP CARDS ==== */
-    .shop-row{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
+    /* ====== SHOP CARDS ====== */
+    .shop-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
     }
 
-    .shop-card{
-      width:50%;
-      background:rgba(0,0,0,0.7);
-      border-radius:28px;
-      padding:10px;
-      backdrop-filter:blur(12px);
-      cursor:pointer;
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-    }
-    .shop-card-inner{
-      width:100%;
-      aspect-ratio:1/1;          /* квадрат под фото товара */
-      background:rgba(255,255,255,0.12);
-      border-radius:22px;
-      backdrop-filter:blur(10px);
-    }
-    .shop-card-btn{
-      margin-top:10px;
-      padding:8px 22px;
-      min-height:34px;
-      font-size:13px;
-      border-radius:999px;
-      border:none;
-      background:#fff;
-      color:#000 !important;
-      cursor:pointer;
-      appearance:none;
-      -webkit-appearance:none;
-      text-decoration:none !important;
+    .shop-card {
+      width: 50%;
+      background: rgba(0,0,0,0.7);
+      border-radius: 28px;
+      padding: 10px;
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* ===== МУЗЫКА: карточки как на скрине ===== */
-
-    .music-grid{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
+    .shop-card-inner {
+      width: 100%;
+      aspect-ratio: 1 / 1;  /* квадратное поле под фото */
+      background: rgba(255,255,255,0.12);
+      border-radius: 22px;
+      backdrop-filter: blur(10px);
     }
 
-    .music-card{
-      flex:1 1 calc(50% - 6px);           /* 2 карточки в ряд */
-      min-width:150px;
-      background:rgba(0,0,0,0.85);
-      border-radius:22px;
-      border:2px solid rgba(255,255,255,0.25);
-      padding:10px 12px;
-      display:flex;
-      align-items:center;
-      cursor:pointer;
-      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
-      box-shadow:0 8px 18px rgba(0,0,0,0.6);
+    .shop-card-btn {
+      margin-top: 10px;
+      padding: 8px 22px;
+      min-height: 34px;
+      font-size: 13px;
+      border-radius: 999px;
+      border: none;
+      background: #fff;
+      color: #000 !important;
+      cursor: pointer;
+
+      appearance: none;
+      -webkit-appearance: none;
+      text-decoration: none !important;
     }
 
-    .music-card:active{
-      transform:translateY(2px) scale(.98);
-      box-shadow:0 4px 10px rgba(0,0,0,0.7);
-      border-color:rgba(255,255,255,0.5);
+    /* ====== MUSIC BLOCK ====== */
+    .music-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
 
-    .music-cover{
-      width:56px;
-      height:56px;
-      border-radius:16px;
-      background:#550000;
-      overflow:hidden;
-      flex-shrink:0;
-    }
-    .music-cover img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
+    .music-tile {
+      background: rgba(255,255,255,0.07);
+      border-radius: 22px;
+      padding: 10px;
+      border: 2px solid rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
     }
 
-    .music-text{
-      margin-left:10px;
-      color:#fff;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
+    .music-tile-cover {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.12);
+      overflow: hidden;
+      flex-shrink: 0;
     }
-    .music-title{
-      font-size:13px;
-      font-weight:600;
-      line-height:1.1;
-    }
-    .music-sub{
-      font-size:10px;
-      opacity:.7;
-      margin-top:4px;
-      letter-spacing:.03em;
+    .music-tile-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    /* ===== PRODUCT / ALBUM MODALS ===== */
-
-    .product-modal-backdrop{
-      position:fixed;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(0,0,0,0.7);
-      backdrop-filter:blur(18px);
-      visibility:hidden;
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .25s ease, visibility .25s ease;
-      z-index:1000;
+    .music-tile-text {
+      margin-left: 10px;
+      color: #fff;
     }
-    .product-modal-backdrop.open{
-      visibility:visible;
-      opacity:1;
-      pointer-events:auto;
+    .music-tile-title {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+    .music-tile-sub {
+      font-size: 10px;
+      opacity: .7;
+      margin-top: 3px;
     }
 
-    .product-modal{
-      width:100%;
-      max-width:430px;
-      margin:0 14px;
-      background:rgba(20,20,20,0.95);
-      border-radius:24px;
-      border:1px solid rgba(255,255,255,0.25);
-      overflow:hidden;
-      max-height:80vh;
-      display:flex;
-      flex-direction:column;
-      animation:modalUp .3s ease;
+    /* ===== PRODUCT + MUSIC MODALS ===== */
+
+    .product-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(18px);
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease, visibility .25s ease;
+      z-index: 1000;
+    }
+    .product-modal-backdrop.open {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    @keyframes modalUp{
-      from{opacity:0;transform:translateY(22px) scale(.97);}
-      to{opacity:1;transform:translateY(0) scale(1);}
+    .product-modal {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 14px;
+      background: rgba(20,20,20,0.95);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.25);
+      overflow: hidden;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      animation: modalUp .3s ease;
     }
 
-    .product-header-row{
-      display:flex;
-      align-items:center;
-      padding:12px 16px 4px;
-      color:#fff;
-    }
-    .product-back{
-      font-size:24px;
-      cursor:pointer;
-      margin-right:8px;
-    }
-    .product-header-title{
-      font-size:14px;
-      opacity:.8;
+    @keyframes modalUp {
+      from { opacity: 0; transform: translateY(22px) scale(.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    .product-scroll{
-      overflow-y:auto;
-      -webkit-overflow-scrolling:touch;
-      padding:0 16px 18px;
+    .product-header-row {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px 4px;
+      color: #fff;
+    }
+    .product-back {
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    .product-header-title {
+      font-size: 14px;
+      opacity: .8;
     }
 
-    .product-carousel{
-      width:100%;
-      height:240px;
-      border-radius:18px;
-      overflow:hidden;
-      margin-bottom:10px;
-      position:relative;
-    }
-    .product-carousel-track{
-      display:flex;
-      height:100%;
-      width:300%;
-      transition:transform .35s cubic-bezier(.16,.84,.44,1);
-    }
-    .product-slide{
-      width:100%;
-      height:100%;
-      background:rgba(255,255,255,0.14);
-      flex-shrink:0;
-      border-radius:18px;
-      backdrop-filter:blur(6px);
-    }
-    .product-dots{
-      text-align:center;
-      margin-bottom:12px;
-    }
-    .product-dots span{
-      width:7px;height:7px;display:inline-block;background:#777;border-radius:50%;margin:0 3px;opacity:.4;
-      transition:.2s;
-    }
-    .product-dots .active{
-      background:#fff;
-      opacity:1;
-      transform:scale(1.25);
+    .product-scroll {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 16px 18px;
     }
 
-    .product-title{
-      color:#fff;
-      font-size:20px;
-      font-weight:700;
-      margin-bottom:14px;
+    /* Карусель внутри товаров */
+    .product-carousel {
+      width: 100%;
+      height: 240px;
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      position: relative;
     }
-    .product-label{
-      color:#fff;font-size:14px;font-weight:600;margin-bottom:4px;
+    .product-carousel-track {
+      display: flex;
+      height: 100%;
+      width: 300%;
+      transition: transform .35s cubic-bezier(.16,.84,.44,1);
     }
-    .product-text,.product-meta{
-      color:#fff;font-size:13px;opacity:.85;margin-bottom:8px;
+    .product-slide {
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.14);
+      flex-shrink: 0;
+      border-radius: 18px;
+      backdrop-filter: blur(6px);
     }
 
-    .buy-big{
-      margin-top:20px;
-      text-align:center;
-      padding:20px 0;
-      background:#000;
-      color:#fff;
-      border-radius:26px;
-      font-size:28px;
-      letter-spacing:2px;
-      cursor:pointer;
+    .product-dots {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .product-dots span {
+      width: 7px;
+      height: 7px;
+      display: inline-block;
+      background: #777;
+      border-radius: 50%;
+      margin: 0 3px;
+      opacity: .4;
+      transition: .2s;
+    }
+    .product-dots .active {
+      background: #fff;
+      opacity: 1;
+      transform: scale(1.25);
     }
 
-    @media (max-width:360px){
-      .carousel{height:230px;}
-      .product-carousel{height:210px;}
+    .product-title {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .product-label {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .product-text,
+    .product-meta {
+      color: #fff;
+      font-size: 13px;
+      opacity: .85;
+      margin-bottom: 8px;
+    }
+
+    .buy-big {
+      margin-top: 20px;
+      text-align: center;
+      padding: 20px 0;
+      background: #000;
+      color: #fff;
+      border-radius: 26px;
+      font-size: 28px;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+
+    /* МУЗЫКАЛЬНЫЕ МОДАЛКИ (БЕЗ СЛАЙДЕРА) */
+    .album-cover-big {
+      width: 100%;
+      height: 220px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.12);
+      margin-bottom: 14px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .album-cover-big img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .album-meta {
+      color: #fff;
+      font-size: 13px;
+      opacity: .85;
+      margin-bottom: 8px;
+    }
+
+    .album-tracklist {
+      color: #fff;
+      font-size: 13px;
+      opacity: .9;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    .listen-big {
+      margin-top: 20px;
+      text-align: center;
+      padding: 20px 0;
+      background: #fff;
+      color: #000;
+      border-radius: 26px;
+      font-size: 24px;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 360px) {
+      .carousel { height: 230px; }
+      .product-carousel { height: 210px; }
     }
   </style>
 </head>
@@ -350,7 +413,7 @@
   <div class="block">
     <div class="carousel" id="carousel-home">
       <div class="carousel-track">
-        <div class="carousel-slide"><img src="dark-bg.jpg" width="390"></div>
+        <div class="carousel-slide"></div>
         <div class="carousel-slide"></div>
         <div class="carousel-slide"></div>
       </div>
@@ -384,37 +447,27 @@
 
   <div class="block">
     <div class="music-grid">
-      <div class="music-card" onclick="openProduct('album-amur')">
-        <div class="music-cover"><img src="1.jpg" alt=""></div>
-        <div class="music-text">
-          <div class="music-title">АМУРНЫЕ ДЕЛА</div>
-          <div class="music-sub">143 HERTZ</div>
+
+      <div class="music-tile" onclick="openProduct('album-amur')">
+        <div class="music-tile-cover">
+          <img src="1.jpg" alt="">
+        </div>
+        <div class="music-tile-text">
+          <div class="music-tile-title">АМУРНЫЕ ДЕЛА</div>
+          <div class="music-tile-sub">143 HERTZ</div>
         </div>
       </div>
 
-      <div class="music-card" onclick="openProduct('album-amur')">
-        <div class="music-cover"><img src="1.jpg" alt=""></div>
-        <div class="music-text">
-          <div class="music-title">АМУРНЫЕ ДЕЛА</div>
-          <div class="music-sub">143 HERTZ</div>
+      <div class="music-tile" onclick="openProduct('album-bloody')">
+        <div class="music-tile-cover">
+          <img src="2.jpg" alt="">
+        </div>
+        <div class="music-tile-text">
+          <div class="music-tile-title">BLOODY COMFORT</div>
+          <div class="music-tile-sub">143 HERTZ</div>
         </div>
       </div>
 
-      <div class="music-card" onclick="openProduct('album-bloody')">
-        <div class="music-cover"><img src="2.jpg" alt=""></div>
-        <div class="music-text">
-          <div class="music-title">BLOODY COMFORT</div>
-          <div class="music-sub">143 HERTZ</div>
-        </div>
-      </div>
-
-      <div class="music-card" onclick="openProduct('album-bloody')">
-        <div class="music-cover"><img src="2.jpg" alt=""></div>
-        <div class="music-text">
-          <div class="music-title">BLOODY COMFORT</div>
-          <div class="music-sub">143 HERTZ</div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -507,88 +560,83 @@
   </div>
 </div>
 
-<!-- ===== MODAL: ALBUM "АМУРНЫЕ ДЕЛА" ===== -->
+<!-- ===== MODAL: ALBUM AMURNYE ===== -->
 <div class="product-modal-backdrop" id="album-amur">
   <div class="product-modal" onclick="event.stopPropagation()">
     <div class="product-header-row">
       <div class="product-back" onclick="closeProduct('album-amur')">←</div>
-      <div class="product-header-title">АМУРНЫЕ ДЕЛА — альбом</div>
+      <div class="product-header-title">АМУРНЫЕ ДЕЛА</div>
     </div>
 
     <div class="product-scroll">
-      <div class="product-carousel">
-        <div class="product-carousel-track">
-          <div class="product-slide"></div>
-          <div class="product-slide"></div>
-          <div class="product-slide"></div>
-        </div>
+      <div class="album-cover-big">
+        <img src="1.jpg" alt="">
       </div>
 
       <div class="product-title">АМУРНЫЕ ДЕЛА</div>
 
-      <div class="product-label">Артист:</div>
-      <div class="product-meta">143 HERTZ</div>
+      <div class="album-meta">Исполнитель: 143 HERTZ</div>
+      <div class="album-meta">Год: 20XX</div>
 
       <div class="product-label">Описание:</div>
       <div class="product-text">
-        Атмосферный альбом про амурные дела и поздние ночи. Включай в наушниках и не забывай, кого ты поддерживаешь.
+        Атмосферный релиз с амурными делами и всем, что из них вытекает.
+        Саундтрек к разбитым сердцам и ночным прогулкам.
       </div>
 
-      <div class="product-label">Треки:</div>
-      <div class="product-text">
-        1. Intro<br>
-        2. Амурные дела<br>
-        3. Слёзы на бит<br>
-        4. Outro
+      <div class="product-label">Треклист (пример):</div>
+      <div class="album-tracklist">
+        1. интро<br>
+        2. амурные дела<br>
+        3. по району<br>
+        4. поздний звонок<br>
+        5. outro
       </div>
 
-      <div class="buy-big">СЛУШАТЬ</div>
+      <div class="listen-big">СЛУШАТЬ</div>
     </div>
   </div>
 </div>
 
-<!-- ===== MODAL: ALBUM "BLOODY COMFORT" ===== -->
+<!-- ===== MODAL: ALBUM BLOODY COMFORT ===== -->
 <div class="product-modal-backdrop" id="album-bloody">
   <div class="product-modal" onclick="event.stopPropagation()">
     <div class="product-header-row">
       <div class="product-back" onclick="closeProduct('album-bloody')">←</div>
-      <div class="product-header-title">BLOODY COMFORT — альбом</div>
+      <div class="product-header-title">BLOODY COMFORT</div>
     </div>
 
     <div class="product-scroll">
-      <div class="product-carousel">
-        <div class="product-carousel-track">
-          <div class="product-slide"></div>
-          <div class="product-slide"></div>
-          <div class="product-slide"></div>
-        </div>
+      <div class="album-cover-big">
+        <img src="2.jpg" alt="">
       </div>
 
       <div class="product-title">BLOODY COMFORT</div>
 
-      <div class="product-label">Артист:</div>
-      <div class="product-meta">143 HERTZ</div>
+      <div class="album-meta">Исполнитель: 143 HERTZ</div>
+      <div class="album-meta">Год: 20XX</div>
 
       <div class="product-label">Описание:</div>
       <div class="product-text">
-        Темный уютный релиз, который хочется слушать в наушниках и выключить свет.
+        Жёсткий, но уютный релиз. Когда в голове шум, а в наушниках только 143 HERTZ.
       </div>
 
-      <div class="product-label">Треки:</div>
-      <div class="product-text">
-        1. Bloody Intro<br>
-        2. Comfort Zone<br>
-        3. Night Call<br>
-        4. Last Track
+      <div class="product-label">Треклист (пример):</div>
+      <div class="album-tracklist">
+        1. intro<br>
+        2. bloody comfort<br>
+        3. красный свет<br>
+        4. ночь без сна<br>
+        5. outro
       </div>
 
-      <div class="buy-big">СЛУШАТЬ</div>
+      <div class="listen-big">СЛУШАТЬ</div>
     </div>
   </div>
 </div>
 
 <script>
-  // Открытие / закрытие модалок (и товара, и альбомов)
+  // ---------- ОТКРЫТИЕ / ЗАКРЫТИЕ МОДАЛОК ----------
   function openProduct(id){
     const el = document.getElementById(id);
     if(!el) return;
@@ -611,17 +659,21 @@
     });
   });
 
-  // Карусели (свайп)
-  function initCarousel(carouselId, dotsId, slideClass='.carousel-slide', trackClass='.carousel-track'){
-    const wrap = document.getElementById(carouselId);
-    if(!wrap) return;
-    const track = wrap.querySelector(trackClass);
-    const slides = wrap.querySelectorAll(slideClass);
+  // ---------- УНИВЕРСАЛЬНЫЙ СЛАЙДЕР ----------
+  function initCarousel(carouselId, dotsId, slideClass, trackClass, autoplay=false, interval=3000){
+    const wrap  = document.getElementById(carouselId);
     const dotsWrap = document.getElementById(dotsId);
-    const dots = dotsWrap ? dotsWrap.querySelectorAll('span') : [];
+    if(!wrap || !dotsWrap) return null;
+
+    const track  = wrap.querySelector(trackClass);
+    const slides = wrap.querySelectorAll(slideClass);
+    const dots   = dotsWrap.querySelectorAll('span');
+
+    if(!track || slides.length === 0) return null;
 
     let index = 0;
     let startX = 0;
+    let timer = null;
 
     function update(){
       track.style.transform = `translateX(-${index * 100}%)`;
@@ -629,32 +681,68 @@
       if(dots[index]) dots[index].classList.add('active');
     }
 
+    function next(){
+      index = (index + 1) % slides.length;
+      update();
+    }
+
+    function startAuto(){
+      if(!autoplay) return;
+      stopAuto();
+      timer = setInterval(next, interval);
+    }
+
+    function stopAuto(){
+      if(timer){
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
     wrap.addEventListener('touchstart', e => {
       startX = e.touches[0].clientX;
+      stopAuto();
     });
 
     wrap.addEventListener('touchend', e => {
       const diff = e.changedTouches[0].clientX - startX;
-      if(diff > 60 && index > 0) index--;
-      if(diff < -60 && index < slides.length - 1) index++;
+      if(diff > 50 && index > 0) index--;
+      if(diff < -50 && index < slides.length - 1) index++;
       update();
+      startAuto();
     });
 
     update();
+    startAuto();
 
-    return {
-      next(){
-        index = (index + 1) % slides.length;
-        update();
-      }
-    };
+    return { next, startAuto, stopAuto };
   }
 
-  // Главная карусель
-  initCarousel("carousel-home","dots-home",".carousel-slide",".carousel-track");
-  // Карусели внутри модалок товаров
-  initCarousel("carousel-keychain","dots-keychain",".product-slide",".product-carousel-track");
-  initCarousel("carousel-tshirt","dots-tshirt",".product-slide",".product-carousel-track");
+  // Главная карусель (с автопрокруткой раз в 3 сек)
+  initCarousel(
+    "carousel-home",
+    "dots-home",
+    ".carousel-slide",
+    ".carousel-track",
+    true,
+    3000
+  );
+
+  // Карусели внутри товаров (без автопрокрутки)
+  initCarousel(
+    "carousel-keychain",
+    "dots-keychain",
+    ".product-slide",
+    ".product-carousel-track",
+    false
+  );
+  initCarousel(
+    "carousel-tshirt",
+    "dots-tshirt",
+    ".product-slide",
+    ".product-carousel-track",
+    false
+  );
 </script>
 
 </body>
