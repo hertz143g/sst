@@ -1,196 +1,305 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>143 HERTZ</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>143 HERTZ</title>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;}
+  <style>
+    * {
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-body{
-  background:url('dark-bg.jpg') center/cover no-repeat fixed;
-  min-height:100vh;
-  padding-top:40px;   /* safe zone */
-}
+    /* ФОН САЙТА + ОБЩИЙ СКРОЛЛ */
+    body {
+      background:url('dark-bg2.jpg') center/cover no-repeat fixed;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+    }
 
-.app{
-  width:100%;
-  max-width:430px;
-  margin:auto;
-  padding:0 14px 40px;
-}
+    .app {
+      width:100%;
+      max-width:430px;
+      padding:40px 14px 40px;  /* 40px сверху = безопасная зона */
+    }
 
-/* HEADER */
-.header{
-  text-align:center;
-  margin-bottom:14px;
-}
-.header img{
-  width:44px;
-}
+    /* HEADER */
+    .header{
+      text-align:center;
+      margin-bottom:14px;
+    }
+    .header img{
+      width:44px;
+      height:auto;
+    }
 
-/* UNIVERSAL GLASS BLOCK */
-.block{
-  background:rgba(255,255,255,0.06);
-  backdrop-filter:blur(18px);
-  border-radius:22px;
-  border:1px solid rgba(255,255,255,0.15);
-  padding:18px;
-  margin-bottom:26px;
-  box-shadow:0 12px 26px rgba(0,0,0,0.5);
-}
+    /* UNIVERSAL GLASS BLOCK */
+    .block{
+      background:rgba(255,255,255,0.06);
+      backdrop-filter:blur(18px);
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,0.15);
+      padding:18px;
+      margin-bottom:26px;
+      box-shadow:0 12px 26px rgba(0,0,0,0.5);
+    }
 
-/* CAROUSEL */
-.carousel{
-  width:100%;
-  height:260px;
-  overflow:hidden;
-  border-radius:16px;
-  position:relative;
-  margin-bottom:10px;
-}
-.carousel-track{
-  display:flex;
-  height:100%;
-  width:300%;
-  transition:transform .35s cubic-bezier(.16,.84,.44,1);
-}
-.carousel-slide{
-  width:100%;
-  height:100%;
-  background:rgba(255,255,255,0.14);
-  backdrop-filter:blur(6px);
-  flex-shrink:0;
-}
+    /* CAROUSEL */
+    .carousel{
+      width:100%;
+      height:260px;
+      overflow:hidden;
+      border-radius:16px;
+      position:relative;
+      margin-bottom:10px;
+    }
+    .carousel-track{
+      display:flex;
+      height:100%;
+      width:300%;
+      transition:transform .35s cubic-bezier(.16,.84,.44,1);
+    }
+    .carousel-slide{
+      width:100%;
+      height:100%;
+      background:rgba(255,255,255,0.14);
+      backdrop-filter:blur(6px);
+      flex-shrink:0;
+    }
 
-.carousel-dots{
-  text-align:center;
-  margin-top:4px;
-}
-.carousel-dots span{
-  width:7px;height:7px;display:inline-block;background:#777;border-radius:50%;margin:0 3px;opacity:.4;
-  transition:.2s;
-}
-.carousel-dots .active{
-  background:#fff;
-  opacity:1;
-  transform:scale(1.25);
-}
+    .carousel-dots{
+      text-align:center;
+      margin-top:4px;
+    }
+    .carousel-dots span{
+      width:7px;height:7px;display:inline-block;background:#777;border-radius:50%;margin:0 3px;opacity:.4;
+      transition:.2s;
+    }
+    .carousel-dots .active{
+      background:#fff;
+      opacity:1;
+      transform:scale(1.25);
+    }
 
-.hero-listen{
-  position:absolute;
-  bottom:12px; right:12px;
-  padding:6px 18px;
-  background:rgba(0,0,0,0.7);
-  border:none;
-  color:#fff;
-  border-radius:16px;
-  font-size:13px;
-}
+    .hero-listen{
+      position:absolute;
+      bottom:12px; right:12px;
+      padding:6px 18px;
+      background:rgba(0,0,0,0.7);
+      border:none;
+      color:#fff;
+      border-radius:16px;
+      font-size:13px;
+      cursor:pointer;
+    }
 
-/* TITLES */
-.section-title{
-  color:#fff;
-  font-size:22px;
-  font-weight:500;
-  margin:12px 0;
-}
+    /* TITLES */
+    .section-title{
+      color:#fff;
+      font-size:22px;
+      font-weight:500;
+      margin:12px 4px;
+    }
 
-/* SHOP CARDS */
-.shop-row{
-  display:flex;
-  justify-content:space-between;
-}
-.shop-card{
-  width:48%;
-  height:160px;
-  background:rgba(0,0,0,0.6);
-  border-radius:28px;
-  position:relative;
-  padding:10px;
-  backdrop-filter:blur(12px);
-}
-.shop-card-inner{
-  position:absolute;
-  inset:10px 10px 38px 10px;
-  background:rgba(255,255,255,0.12);
-  border-radius:22px;
-  backdrop-filter:blur(10px);
-}
-.shop-card-btn{
-  position:absolute;
-  bottom:8px; left:50%; transform:translateX(-50%);
-  padding:4px 18px;
-  font-size:11px;
-  border-radius:999px;
-  border:none;
-  background:#fff;
-}
+    /* SHOP CARDS */
+    .shop-row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .shop-card{
+      width:50%;
+      height:160px;
+      background:rgba(0,0,0,0.7);
+      border-radius:28px;
+      position:relative;
+      padding:10px;
+      backdrop-filter:blur(12px);
+      cursor:pointer;
+      overflow:hidden;
+    }
+    .shop-card-inner{
+      position:absolute;
+      inset:10px 10px 38px 10px;
+      background:rgba(255,255,255,0.12);
+      border-radius:22px;
+      backdrop-filter:blur(10px);
+    }
+    .shop-card-btn{
+      position:absolute;
+      bottom:8px; left:50%; transform:translateX(-50%);
+      padding:4px 18px;
+      font-size:11px;
+      border-radius:999px;
+      border:none;
+      background:#fff;
+      cursor:pointer;
+    }
 
-/* MUSIC */
-.music-card{
-  background:rgba(255,255,255,0.07);
-  backdrop-filter:blur(16px);
-  border-radius:22px;
-  padding:12px;
-  display:flex;
-  align-items:center;
-  border:2px solid rgba(255,255,255,0.25);
-  margin-bottom:14px;
-}
-.music-cover{
-  width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,0.12);overflow:hidden;
-}
-.music-cover img{
-  width:100%;height:100%;object-fit:cover;
-}
-.music-text{margin-left:14px;color:#fff;}
-.music-title{font-size:14px;font-weight:600;}
-.music-sub{font-size:11px;opacity:.7;margin-top:3px;}
-.music-card button{
-  margin-left:auto;
-  padding:6px 14px;
-  border-radius:12px;
-  border:none;
-  background:#000;
-  color:#fff;
-  font-size:11px;
-}
+    /* MUSIC */
+    .music-card{
+      background:rgba(255,255,255,0.07);
+      backdrop-filter:blur(16px);
+      border-radius:22px;
+      padding:12px;
+      display:flex;
+      align-items:center;
+      border:2px solid rgba(255,255,255,0.25);
+      margin-bottom:14px;
+    }
+    .music-cover{
+      width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,0.12);overflow:hidden;
+    }
+    .music-cover img{
+      width:100%;height:100%;object-fit:cover;
+    }
+    .music-text{margin-left:14px;color:#fff;}
+    .music-title{font-size:14px;font-weight:600;}
+    .music-sub{font-size:11px;opacity:.7;margin-top:3px;}
+    .music-card button{
+      margin-left:auto;
+      padding:6px 14px;
+      border-radius:12px;
+      border:none;
+      background:#000;
+      color:#fff;
+      font-size:11px;
+      cursor:pointer;
+    }
 
-/* BACK BUTTON */
-.back-row{
-  color:#fff;
-  font-size:26px;
-  margin-bottom:10px;
-  cursor:pointer;
-}
+    /* ===== PRODUCT MODALS ===== */
 
-/* PRODUCT PAGE */
-.product-title{
-  color:#fff;
-  font-size:20px;
-  font-weight:700;
-  margin-bottom:14px;
-}
-.product-label{
-  color:#fff;font-size:14px;font-weight:600;margin-bottom:4px;
-}
-.product-text,.product-meta{
-  color:#fff;font-size:13px;opacity:.85;margin-bottom:8px;
-}
+    .product-modal-backdrop{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.7);
+      backdrop-filter:blur(18px);
+      visibility:hidden;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .25s ease, visibility .25s ease;
+      z-index:1000;
+    }
+    .product-modal-backdrop.open{
+      visibility:visible;
+      opacity:1;
+      pointer-events:auto;
+    }
 
-.buy-big{
-  margin-top:26px;
-  text-align:center;
-  padding:24px 0;
-  background:#000;
-  color:#fff;
-  border-radius:28px;
-  font-size:30px;
-  letter-spacing:2px;
-}
-</style>
+    .product-modal{
+      width:100%;
+      max-width:430px;
+      margin:0 14px;
+      background:rgba(20,20,20,0.95);
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,0.25);
+      overflow:hidden;
+      max-height:80vh;
+      display:flex;
+      flex-direction:column;
+      animation:modalUp .3s ease;
+    }
+
+    @keyframes modalUp{
+      from{opacity:0;transform:translateY(22px) scale(.97);}
+      to{opacity:1;transform:translateY(0) scale(1);}
+    }
+
+    .product-header-row{
+      display:flex;
+      align-items:center;
+      padding:12px 16px 4px;
+      color:#fff;
+    }
+    .product-back{
+      font-size:24px;
+      cursor:pointer;
+      margin-right:8px;
+    }
+    .product-header-title{
+      font-size:14px;
+      opacity:.8;
+    }
+
+    .product-scroll{
+      overflow-y:auto;
+      -webkit-overflow-scrolling:touch;
+      padding:0 16px 18px;
+    }
+
+    .product-carousel{
+      width:100%;
+      height:240px;
+      border-radius:18px;
+      overflow:hidden;
+      margin-bottom:10px;
+      position:relative;
+    }
+    .product-carousel-track{
+      display:flex;
+      height:100%;
+      width:300%;
+      transition:transform .35s cubic-bezier(.16,.84,.44,1);
+    }
+    .product-slide{
+      width:100%;
+      height:100%;
+      background:rgba(255,255,255,0.14);
+      flex-shrink:0;
+      border-radius:18px;
+      backdrop-filter:blur(6px);
+    }
+    .product-dots{
+      text-align:center;
+      margin-bottom:12px;
+    }
+    .product-dots span{
+      width:7px;height:7px;display:inline-block;background:#777;border-radius:50%;margin:0 3px;opacity:.4;
+      transition:.2s;
+    }
+    .product-dots .active{
+      background:#fff;
+      opacity:1;
+      transform:scale(1.25);
+    }
+
+    .product-title{
+      color:#fff;
+      font-size:20px;
+      font-weight:700;
+      margin-bottom:14px;
+    }
+    .product-label{
+      color:#fff;font-size:14px;font-weight:600;margin-bottom:4px;
+    }
+    .product-text,.product-meta{
+      color:#fff;font-size:13px;opacity:.85;margin-bottom:8px;
+    }
+
+    .buy-big{
+      margin-top:20px;
+      text-align:center;
+      padding:20px 0;
+      background:#000;
+      color:#fff;
+      border-radius:26px;
+      font-size:28px;
+      letter-spacing:2px;
+      cursor:pointer;
+    }
+
+    @media (max-width:360px){
+      .carousel{height:230px;}
+      .product-carousel{height:210px;}
+    }
+  </style>
 </head>
 
 <body>
@@ -201,7 +310,7 @@ body{
     <img src="logo.png" alt="logo">
   </div>
 
-  <!-- HOME -->
+  <!-- ====== HOME: HERO CAROUSEL ====== -->
   <div class="block">
     <div class="carousel" id="carousel-home">
       <div class="carousel-track">
@@ -217,27 +326,29 @@ body{
     </div>
   </div>
 
+  <!-- ====== SHOP ====== -->
   <div class="section-title">Магазин</div>
 
   <div class="block">
     <div class="shop-row">
-      <div class="shop-card">
+      <div class="shop-card" onclick="openProduct('product-keychain')">
         <div class="shop-card-inner"></div>
         <button class="shop-card-btn">купить</button>
       </div>
 
-      <div class="shop-card">
+      <div class="shop-card" onclick="openProduct('product-tshirt')">
         <div class="shop-card-inner"></div>
         <button class="shop-card-btn">купить</button>
       </div>
     </div>
   </div>
 
+  <!-- ====== MUSIC ====== -->
   <div class="section-title">Музыка</div>
 
   <div class="block">
     <div class="music-card">
-      <div class="music-cover"><img src="1.jpg"></div>
+      <div class="music-cover"><img src="1.jpg" alt=""></div>
       <div class="music-text">
         <div class="music-title">АМУРНЫЕ ДЕЛА</div>
         <div class="music-sub">143 HERTZ</div>
@@ -257,28 +368,139 @@ body{
 
 </div>
 
+<!-- ===== MODAL: KEYCHAIN ===== -->
+<div class="product-modal-backdrop" id="product-keychain">
+  <div class="product-modal" onclick="event.stopPropagation()">
+    <div class="product-header-row">
+      <div class="product-back" onclick="closeProduct('product-keychain')">←</div>
+      <div class="product-header-title">Брелок “АМУРНЫЕ ДЕЛА” NFC</div>
+    </div>
+
+    <div class="product-scroll">
+      <div class="product-carousel" id="carousel-keychain">
+        <div class="product-carousel-track">
+          <div class="product-slide"></div>
+          <div class="product-slide"></div>
+          <div class="product-slide"></div>
+        </div>
+      </div>
+
+      <div class="product-dots" id="dots-keychain">
+        <span class="active"></span><span></span><span></span>
+      </div>
+
+      <div class="product-title">Брелок “АМУРНЫЕ ДЕЛА” NFC</div>
+
+      <div class="product-label">Описание:</div>
+      <div class="product-text">
+        Данный рарнейший айтем приурочен к выходу одноимённого альбома
+        исполнителя 143 HERTZ. Купив его вы поддерживаете молодую легенду
+        альтернативной сцены! Не глупи. Заказывай прямо сейчас!!!
+      </div>
+
+      <div class="product-label">Материал:</div>
+      <div class="product-meta">акрил</div>
+
+      <div class="buy-big">КУ ПИ ТЬ</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: T-SHIRT ===== -->
+<div class="product-modal-backdrop" id="product-tshirt">
+  <div class="product-modal" onclick="event.stopPropagation()">
+    <div class="product-header-row">
+      <div class="product-back" onclick="closeProduct('product-tshirt')">←</div>
+      <div class="product-header-title">Oversize T-shirt '143 HERTZ'</div>
+    </div>
+
+    <div class="product-scroll">
+      <div class="product-carousel" id="carousel-tshirt">
+        <div class="product-carousel-track">
+          <div class="product-slide"></div>
+          <div class="product-slide"></div>
+          <div class="product-slide"></div>
+        </div>
+      </div>
+
+      <div class="product-dots" id="dots-tshirt">
+        <span class="active"></span><span></span><span></span>
+      </div>
+
+      <div class="product-title">Oversize T-shirt '143 HERTZ' with embroidery</div>
+
+      <div class="product-label">Описание:</div>
+      <div class="product-text">
+        Футболка. Осталась одна штука, ребят…
+      </div>
+
+      <div class="product-label">Материал:</div>
+      <div class="product-meta">95% хлопок, 5% лайкра</div>
+
+      <div class="product-label">Размер:</div>
+      <div class="product-meta">one-size L–XXL</div>
+
+      <div class="buy-big">КУ ПИ ТЬ</div>
+    </div>
+  </div>
+</div>
+
 <script>
-function initCarousel(carouselId, dotsId){
-  const wrap=document.getElementById(carouselId);
-  const track=wrap.querySelector('.carousel-track');
-  const dots=document.getElementById(dotsId).querySelectorAll('span');
-  let index=0,startX=0;
+  // Открытие / закрытие модалок
+  function openProduct(id){
+    const el = document.getElementById(id);
+    el.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
 
-  wrap.addEventListener('touchstart',e=>{
-    startX=e.touches[0].clientX;
+  function closeProduct(id){
+    const el = document.getElementById(id);
+    el.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Закрытие по клику на фон
+  document.querySelectorAll('.product-modal-backdrop').forEach(backdrop=>{
+    backdrop.addEventListener('click', ()=> {
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    });
   });
 
-  wrap.addEventListener('touchend',e=>{
-    let diff=e.changedTouches[0].clientX-startX;
-    if(diff>60 && index>0) index--;
-    if(diff<-60 && index<2) index++;
-    track.style.transform=`translateX(-${index*100}%)`;
-    dots.forEach(d=>d.classList.remove('active'));
-    dots[index].classList.add('active');
-  });
-}
+  // Карусели
+  function initCarousel(carouselId, dotsId, slideClass='.carousel-slide', trackClass='.carousel-track'){
+    const wrap=document.getElementById(carouselId);
+    const track=wrap.querySelector(trackClass);
+    const slides=wrap.querySelectorAll(slideClass);
+    const dots=document.getElementById(dotsId).querySelectorAll('span');
 
-initCarousel("carousel-home","dots-home");
+    let index=0,startX=0;
+
+    function update(){
+      track.style.transform=`translateX(-${index*100}%)`;
+      dots.forEach(d=>d.classList.remove('active'));
+      dots[index].classList.add('active');
+    }
+
+    wrap.addEventListener('touchstart',e=>{
+      startX=e.touches[0].clientX;
+    });
+
+    wrap.addEventListener('touchend',e=>{
+      let diff=e.changedTouches[0].clientX-startX;
+      if(diff>60 && index>0) index--;
+      if(diff<-60 && index<slides.length-1) index++;
+      update();
+    });
+
+    update();
+  }
+
+  // Главная карусель
+  initCarousel("carousel-home","dots-home",".carousel-slide",".carousel-track");
+  // Карусели внутри модалок
+  initCarousel("carousel-keychain","dots-keychain",".product-slide",".product-carousel-track");
+  initCarousel("carousel-tshirt","dots-tshirt",".product-slide",".product-carousel-track");
 </script>
 
 </body>
